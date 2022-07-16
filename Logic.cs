@@ -81,34 +81,27 @@ public class Logic
 
     }
 
-    public static TTTBoard StartGame(UserOption option)
-    {
-        var cpuFirst = true;
+    public static TTTBoard StartGame(UserOption option) {
+        const bool cpuFirst = true;
         var cpuTurn = true;
         var playerTurn = true;
-
         var board = new TTTBoard();
 
-        if(option != UserOption.PLAY_CPU_VS_CPU_X_TIMES)
-            board.Print();
+        if(option != UserOption.PLAY_CPU_VS_CPU_X_TIMES) board.Print();
 
-        while(GetGameState(board) == GameState.ONGOING)
-        {
+        while(GetGameState(board) == GameState.ONGOING) {
             if(cpuTurn && new[] {
                     UserOption.PLAY_CPU_VS_CPU_X_TIMES,
                     UserOption.CPU1_VS_CPU2,
                     UserOption.PLAYER_VS_CPU
                 }.Contains(option))
-                switch(playerTurn)
-                {
-                    case true when cpuFirst:
-                        {
+                switch(playerTurn) {
+                    case true when cpuFirst: {
                             var action = Action(board, TTTBoard.X_SYMBOL);
                             board = action.tttBoard;
                             break;
                         }
-                    case false:
-                        {
+                    case false: {
                             var action = Action(board, TTTBoard.O_SYMBOL);
                             board = action.tttBoard;
                             break;
@@ -116,16 +109,13 @@ public class Logic
                 }
 
             if((option == UserOption.PLAYER_VS_CPU && !cpuTurn) || option == UserOption.PLAYER1_VS_PLAYER2)
-                while(true)
-                {
+                while(true) {
                     string symbol;
-                    if(playerTurn && (option == UserOption.PLAYER1_VS_PLAYER2 || !cpuFirst))
-                    {
+                    if(playerTurn && (option == UserOption.PLAYER1_VS_PLAYER2 || !cpuFirst)) {
                         Console.WriteLine($"Player [{TTTBoard.X_SYMBOL}]: ");
                         symbol = TTTBoard.X_SYMBOL;
                     }
-                    else
-                    {
+                    else {
                         Console.WriteLine($"Player [{TTTBoard.O_SYMBOL}]: ");
                         symbol = TTTBoard.O_SYMBOL;
                     }
@@ -133,22 +123,16 @@ public class Logic
                     var lin = int.TryParse(Console.ReadLine(), out var resLin) ? resLin : 0;
                     Console.Write("Column: ");
                     var col = int.TryParse(Console.ReadLine(), out var resCol) ? resCol : 0;
-                    if(lin is <= 0 or >= 4 ||
-                       col is <= 0 or >= 4 ||
-                       board.Values[lin - 1][col + 1] != TTTBoard.EMPTY_SYMBOL) continue;
-                    board.Values[lin - 1][col + 1] = symbol;
+                    if(lin is <= 0 or >= 4 || col is <= 0 or >= 4 ||
+                       board.Values[lin - 1][col - 1] != TTTBoard.EMPTY_SYMBOL) continue;
+                    board.Values[lin - 1][col - 1] = symbol;
                     break;
                 }
 
-            if (option == UserOption.PLAYER_VS_CPU)
-                cpuTurn = !cpuTurn;
-            
-            if(option != UserOption.PLAY_CPU_VS_CPU_X_TIMES)
-                board.Print();
-
+            if (option == UserOption.PLAYER_VS_CPU) cpuTurn = !cpuTurn;
+            if(option != UserOption.PLAY_CPU_VS_CPU_X_TIMES) board.Print();
             playerTurn = !playerTurn;
         }
-
         return board;
     }
 }
