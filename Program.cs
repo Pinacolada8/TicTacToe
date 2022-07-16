@@ -37,8 +37,8 @@ Option: ");
                    {
                      GameState.VICTORY_X => $"Player [{TTTBoard.X_SYMBOL}] Victory",
                      GameState.VICTORY_O => $"Player [{TTTBoard.O_SYMBOL}] Victory",
-                     GameState.DRAW      => "Draw",
-                     _                   => "ERROR",
+                     GameState.DRAW => "Draw",
+                     _ => "ERROR",
                    });
                  });
 
