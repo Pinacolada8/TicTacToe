@@ -4,7 +4,7 @@ TicTacToe Game
 ## Installation
 
 Download and install .Net Core 6 SDK [.Net Core Install instructions](https://dotnet.microsoft.com/en-us/download).
-You can use any IDE you feel confortable editing, but Visual Studio is preferred.
+You can use any IDE you feel comfortable editing, but Visual Studio is preferred.
 
 ## Executing
 Execution:
